@@ -27,3 +27,10 @@ echo "sudo cloudflared update" >> /etc/cron.weekly/cloudflared-updater
 echo "sudo systemctl restart cloudflared" >> /etc/cron.weekly/cloudflared-updater
 sudo chmod +x /etc/cron.weekly/cloudflared-updater
 sudo chown root:root /etc/cron.weekly/cloudflared-updater
+
+# Add custom DNS to Pi-hole
+# /etc/pihole/setupVars.conf 
+# PIHOLE_DNS_1=127.0.0.1#5053
+
+# Restart FTL
+# sudo service pihole-FTL restart
