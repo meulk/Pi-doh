@@ -9,7 +9,6 @@
 wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
 sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
 sudo chmod +x /usr/local/bin/cloudflared
-#cloudflared -v
 
 # Configuring cloudflared to run on startup
 # create a configuration file for cloudflared
@@ -24,5 +23,7 @@ sudo systemctl start cloudflared
 #sudo systemctl status cloudflared
 
 # Automating Cloudflared Updates
+echo "sudo cloudflared update" >> /etc/cron.weekly/cloudflared-updater
+echo "sudo systemctl restart cloudflared" >> /etc/cron.weekly/cloudflared-updater
 sudo chmod +x /etc/cron.weekly/cloudflared-updater
 sudo chown root:root /etc/cron.weekly/cloudflared-updater
