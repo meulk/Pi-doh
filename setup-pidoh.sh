@@ -1,9 +1,7 @@
 #!/bin/sh
 #
-# PiDoH 0.5
-
-# Cloudflared (DoH)
-# Configuring DNS-Over-HTTPS
+# PiDoH v0.9
+# Configuring Cloudflared (DoH)- DNS-Over-HTTPS
 
 set -e
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
@@ -41,20 +39,18 @@ sudo chmod +x /etc/cron.weekly/cloudflared-updater
 sudo chown root:root /etc/cron.weekly/cloudflared-updater
 
 # Add custom DNS to Pi-hole
-# /etc/pihole/setupVars.conf 
-# PIHOLE_DNS_1=127.0.0.1#5053
-
 dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
 target="/etc/pihole/setupVars.conf"
 
 # replace PIHOLE_DNS_1 with new DOH DNS
 sed -i "s/PIHOLE_DNS_1=1.1.1.1/$dohDNS/" "${target}"
-#remove PIHOLE_DNS_2 line
+# remove PIHOLE_DNS_2 line
 sed -i '/^PIHOLE_DNS_2/d' "${target}"
-
 
 # Restart FTL
 sudo service pihole-FTL restart
 
 # Remove setup script
 rm setup-pidoh.sh
+
+echo -e "\n\e[0;32mNow reinstall blocklist backups via Teleporter in the Pi-hole GUI."
