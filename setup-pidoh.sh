@@ -8,6 +8,13 @@
 set -e
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 
+# Setup the alias piup to run updates for Raspberry Pi
+{
+echo "\n\n"
+echo "# Easy updates for the Pi using the command piup"
+echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'"
+}>> ~/.bashrc
+
 # Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
 wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
 sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
