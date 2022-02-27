@@ -48,3 +48,6 @@ sed -i '/^PIHOLE_DNS_2/d' "${target}"
 
 # Restart FTL
 sudo service pihole-FTL restart
+
+# Remove setup script
+rm setup-pidoh.sh
