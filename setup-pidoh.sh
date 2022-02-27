@@ -53,4 +53,4 @@ sudo service pihole-FTL restart
 # Remove setup script
 rm setup-pidoh.sh
 
-echo -e "\n\e[0;32mNow reinstall blocklist backups via Teleporter in the Pi-hole GUI."
+echo -e "\n\e[0;32mNow reinstall blocklist backups via Teleporter in the Pi-hole GUI.\n"
