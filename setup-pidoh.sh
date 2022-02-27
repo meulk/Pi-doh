@@ -54,4 +54,4 @@ sed -i '/^PIHOLE_DNS_2/d' "${target}"
 
 
 # Restart FTL
-# sudo service pihole-FTL restart
+sudo service pihole-FTL restart
