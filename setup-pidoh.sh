@@ -43,7 +43,7 @@ dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
 target="/etc/pihole/setupVars.conf"
 
 # replace PIHOLE_DNS_1 with new DOH DNS
-sed -i "s/PIHOLE_DNS_1=1.1.1.1/$dohDNS/" "${target}"
+sed -i "s/PIHOLE_DNS_1.*/$dohDNS/" "${target}"
 # remove PIHOLE_DNS_2 line
 sed -i '/^PIHOLE_DNS_2/d' "${target}"
 
