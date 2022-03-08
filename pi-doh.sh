@@ -61,7 +61,7 @@ dns_install() {
 	# Create a configuration file for cloudflared
 	sudo mkdir /etc/cloudflared/
 	tput setaf 2; echo "Creating Cloudflared config file..." 
-	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/doh/main/config.yml"
+	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
 
 	# install the service via cloudflared's service command
 	sudo cloudflared service install --legacy
