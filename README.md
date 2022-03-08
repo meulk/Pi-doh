@@ -9,4 +9,5 @@ You will be prompted during the script to either install Pi-hole **and** Cloudfl
 Run the following command on your Pi to download the script:
 
 `wget -O pi-doh.sh https://raw.githubusercontent.com/meulk/doh/main/pi-doh.sh && chmod +x pi-doh.sh`
+
 `sudo ./pi-doh.sh`
