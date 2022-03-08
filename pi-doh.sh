@@ -4,8 +4,6 @@
 # Configuring Cloudflared (DoH)- DNS-Over-HTTPS
 
 set -e
-# Any subsequent(*) commands which fail will cause the shell script to exit immediately
-
 # Setup the alias piup to run updates for Raspberry Pi
 {
 echo "\n\n"
