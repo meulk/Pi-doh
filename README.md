@@ -1,8 +1,10 @@
 # About Pi-doh 
 
-Pi-doh is a simple script that installs and configures Cloudflared to be your Pi-hole's DNS server, enabling DNS-Over-HTTPS functionality.
+Pi-doh installs and configures PiHole and Cloudflared to be your Pi-hole's DNS server, enabling DNS-Over-HTTPS functionality.
 
-Note. This is for arm64 architecture (64-bit Raspberry Pi)
+## What if I already have PiHole installed? ##
+You will be prompted during the script to either install PiHole and Cloudflared (option 1), or to just install Cloudflared along with required configuration (option 2).
+
 ___
 After the installation of Pi-hole is complete, use the following command to install:
 
