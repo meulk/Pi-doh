@@ -1,7 +1,7 @@
 # About Pi-doh 
 
-## Pi-doh installs Cloudflared and configures PiHole to enable DNS-Over-HTTPS functionality.
+Pi-doh installs Cloudflared and configures PiHole to enable DNS-Over-HTTPS functionality.
 
 
-
-`wget https://raw.githubusercontent.com/meulk/doh/main/setup-pidoh.sh && chmod 755 setup-pidoh.sh`
+Use the following command to install:
+`wget https://raw.githubusercontent.com/meulk/doh/main/pi-doh.sh && chmod 755 pi-doh.sh`
