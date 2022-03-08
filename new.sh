@@ -1,6 +1,9 @@
-#!/bin/bash
-
-# Let's check the script is being run as root
+!/bin/sh
+#
+# Pi-DoH v1.0
+# Script to install and configure Pi-hole and Cloudflared to be your network's recursive DNS server
+set -e
+# Check the script is being run as root
 
 if [[ $EUID -ne 0 ]] ; then
 	echo "This script must be run as root to continue, either sudo this script or run under the root account"
@@ -16,7 +19,7 @@ is_command() {
 }
 
 
-# Main install function, this installs Pi-hole, Cloudflared and wget which we use to get some config files
+# Main install functions, this installs Pi-hole and Cloudflared
 
 pihole_install() {
 	if is_command apt-get ; then
@@ -107,6 +110,10 @@ dns() {
 	fi
 }
 
+teleporter() {
+	tput setaf 2; echo "Now reinstall any blocklist backups via Teleporter in the Pi-hole GUI settings."
+{
+
 
 echo "This script will install Pi-hole, Cloudflared and automatically configure your Pi-hole DNS configuration to use Cloudflared."
 printf "\nWhat would you like to do? (enter a number and press enter) \n1) Install Pi-hole and Cloudflare along with required configuration.\n2) Install Cloudflared along with required configuration.\n"
@@ -118,6 +125,7 @@ if [ "$answer" == "1" ] ;then
 	dns_install
 	configure
 	dns
+	teleporter
 else
 	dns_install
 	configure
