@@ -36,7 +36,7 @@ dns_install() {
 	if is_command apt-get; then
 	whichbit=$(uname -m)
 
-	# Check if Raspberry pi is running 32 bit or 64 bit and download correct version of Cloudflared
+	# Check if Raspberry Pi is running 32 bit or 64 bit and download correct version of Cloudflared
 	
 	if [[ $whichbit == "aarch64" ]]; then
 		# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
@@ -93,7 +93,6 @@ configure() {
 
 dns() {
 
-	# Some variables for testing DNS lookups
 	servfail=$(dig @127.0.0.1 -p 5053 google.com | grep SERVFAIL)
 	noerror=$(dig @127.0.0.1 -p 5053 google.com | grep NOERROR)
 
