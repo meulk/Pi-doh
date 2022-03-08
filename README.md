@@ -6,7 +6,6 @@ Note. This is for arm64 architecture (64-bit Raspberry Pi)
 ___
 After the installation of Pi-hole is complete, use the following command to install:
 
-`wget -O pi-doh.sh https://raw.githubusercontent.com/meulk/doh/main/pi-doh.sh && chmod 755 pi-doh.sh
+`wget -O pi-doh.sh https://raw.githubusercontent.com/meulk/doh/main/pi-doh.sh && chmod 755 pi-doh.sh`
+`sudo ./pi-doh.sh`
 
-sudo ./pi-doh.sh
-`
