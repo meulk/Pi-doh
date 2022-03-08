@@ -19,7 +19,7 @@ sudo chmod +x /usr/local/bin/cloudflared
 # Configuring cloudflared to run on startup
 # create a configuration file for cloudflared
 sudo mkdir /etc/cloudflared/
-wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/doh/main/config.yml"
+wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
 
 # install the service via cloudflared's service command
 sudo cloudflared service install --legacy
