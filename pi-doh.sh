@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# PiDoH v0.9
+# Pi-DoH v0.9
 # Configuring Cloudflared (DoH)- DNS-Over-HTTPS
 
 set -e
