@@ -32,8 +32,13 @@ sudo systemctl start cloudflared
 
 # Automating Cloudflared Updates
 {
-echo "sudo cloudflared update"
-echo "sudo systemctl restart cloudflared"
+#!/bin/sh
+#
+# cloudflared cron weekly update
+set -e
+sudo cloudflared update
+sudo systemctl restart cloudflared
+exit 0
 }>> /etc/cron.weekly/cloudflared-updater
 sudo chmod +x /etc/cron.weekly/cloudflared-updater
 sudo chown root:root /etc/cron.weekly/cloudflared-updater
