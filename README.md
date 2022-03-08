@@ -1,4 +1,5 @@
-# Pi-doh
+# Pi-doh installs Cloudflared and configures PiHole to enable DNS-Over-HTTPS functionality.
+
 Configuring DNS-Over-HTTPS for Pi-hole
 
 
