@@ -31,20 +31,38 @@ pihole_install() {
 
 dns_install() {
 	if is_command apt-get; then
-	# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
-	tput setaf 2; echo "Installing Cloudflared..." 
-	wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
-	sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
-	sudo chmod +x /usr/local/bin/cloudflared
+	whichbit=$(uname -m)
+
+	# Check if Raspberry pi is running 32 bit or 64 bit and download correct version of Cloudflared
+	
+	if [[ $whichbit == "aarch64" ]]; then
+		# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
+                tput setaf 2; echo "Architecture is 64 bit."
+		tput setaf 2; echo "Installing Cloudflared (arm64)..." 
+		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
+		sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
+		sudo chmod +x /usr/local/bin/cloudflared
+        else
+                # Download Cloudflared -armhf architecture (32-bit Raspberry Pi)
+		tput setaf 1; echo "Architecture is 32 bit."
+		tput setaf 2; echo "Installing Cloudflared (armhf)..."
+		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
+		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
+		sudo chmod +x /usr/local/bin/cloudflared
+        fi
+	
+	
+	
 
 	# Configuring cloudflared to run on startup
-	# create a configuration file for cloudflared
+	# Create a configuration file for cloudflared
 	sudo mkdir /etc/cloudflared/
-	tput setaf 2; echo "Creating config file..." 
+	tput setaf 2; echo "Creating Cloudflared config file..." 
 	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/doh/main/config.yml"
 
 	# install the service via cloudflared's service command
 	sudo cloudflared service install --legacy
+	
 	else
 		tput setaf 1; echo "This script will only run on Debian based distros. Quiting..."
 		exit 1
