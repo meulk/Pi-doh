@@ -89,6 +89,14 @@ configure() {
   	sed -i "s/PIHOLE_DNS_1=.*/$dohDNS/" "${target}"
   	# remove PIHOLE_DNS_2 line
   	sed -i '/^PIHOLE_DNS_2=/d' "${target}"
+	
+	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
+	{
+	echo "\n\n"
+	echo "# Easy updates for the Pi using the command piup"
+	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'"
+	}>> ~/.bashrc
+	
 }
 
 dns() {
