@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 #
 # Pi-DoH v1.0
 # Script to install and configure Pi-hole and Cloudflared to be your network's recursive DNS server
