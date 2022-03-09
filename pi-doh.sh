@@ -90,6 +90,9 @@ configure() {
   	# remove PIHOLE_DNS_2 line
   	sed -i '/^PIHOLE_DNS_2=/d' "${target}"
 	
+	# Restart Pi-hole FTL
+	sudo service pihole-FTL restart
+	
 	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
 	{
 	echo "\n\n"
@@ -117,7 +120,9 @@ dns() {
 	fi
 }
 
-teleporter() {
+cleanup() {
+	# Remove setup script
+	rm pi-doh.sh
 	tput setaf 2; echo "Now reinstall any blocklist backups via Teleporter in the Pi-hole GUI settings."
 {
 
@@ -132,7 +137,7 @@ if [ "$answer" == "1" ] ;then
 	dns_install
 	configure
 	dns
-	teleporter
+	cleanup
 else
 	dns_install
 	configure
