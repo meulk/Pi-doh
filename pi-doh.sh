@@ -53,9 +53,6 @@ dns_install() {
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
         fi
-	
-	
-	
 
 	# Configuring cloudflared to run on startup
 	# Create a configuration file for cloudflared
