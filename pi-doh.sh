@@ -139,4 +139,5 @@ else
 	dns_install
 	configure
 	dns
+	rm pi-doh.sh
 fi
