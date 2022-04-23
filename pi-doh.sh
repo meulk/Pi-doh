@@ -9,24 +9,23 @@ if [[ $EUID -ne 0 ]] ; then
 	exit 1
 fi
 
-
-# This function just checks to see if a command is present. This is used to assume the distro we are running.
+# Checks to see if the given command (passed as a string argument) exists on the system.
+# The function returns 0 (success) if the command exists, and 1 if it doesn't.
 is_command() {
 	local check_command="$1"
 
 	command -v "${check_command}" > /dev/null 2>&1
 }
 
-
 # Main install functions, these install Pi-hole and Cloudflared
 
 pihole_install() {
 	if is_command apt-get ; then
-		tput setaf 2; echo "Running Debian based distro, continuing..."
+		tput setaf 2; echo "Running Debian based system, continuing..."
 		tput setaf 2; echo "Pi-hole installation beginning..."
 		curl -sSL https://install.pi-hole.net | bash
 	else
-		tput setaf 1; echo "This script will only run on Debian based distros. Quiting..."
+		tput setaf 1; echo "This script will only run on a Debian based system. Quiting..."
 		exit 1
 	fi
 }
@@ -64,7 +63,7 @@ dns_install() {
 	sudo cloudflared service install --legacy
 	
 	else
-		tput setaf 1; echo "This script will only run on Debian based distros. Quiting..."
+		tput setaf 1; echo "This script will only run on a Debian based system. Quiting..."
 		exit 1
 	fi
 }
