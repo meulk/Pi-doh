@@ -2,8 +2,8 @@
 #
 # Pi-DoH v1.0
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
-# Check the script is being run as root
 
+# Check the script is being run as root
 if [[ $EUID -ne 0 ]] ; then
 	echo "This script must be run as root to continue, either sudo this script or run under the root account"
 	exit 1
@@ -18,7 +18,7 @@ is_command() {
 }
 
 
-# Main install functions, this installs Pi-hole and Cloudflared
+# Main install functions, these install Pi-hole and Cloudflared
 
 pihole_install() {
 	if is_command apt-get ; then
@@ -53,13 +53,14 @@ dns_install() {
 		sudo chmod +x /usr/local/bin/cloudflared
         fi
 
-	# Configuring cloudflared to run on startup
-	# Create a configuration file for cloudflared
+	# Configuring Cloudflared to run on startup
+	
+	# Create a configuration file for Cloudflared
 	sudo mkdir /etc/cloudflared/
 	tput setaf 2; echo "Creating Cloudflared config file..." 
 	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
 
-	# install the service via cloudflared's service command
+	# install the service via Cloudflared's service command
 	sudo cloudflared service install --legacy
 	
 	else
@@ -99,7 +100,6 @@ configure() {
 }
 
 dns() {
-
 	servfail=$(dig @127.0.0.1 -p 5053 google.com | grep SERVFAIL)
 	noerror=$(dig @127.0.0.1 -p 5053 google.com | grep NOERROR)
 
@@ -121,7 +121,6 @@ cleanup() {
 	rm pi-doh.sh
 	tput setaf 2; echo "Now reinstall any blocklist backups via Teleporter in the Pi-hole GUI settings."
 {
-
 
 echo "This script will install Pi-hole, Cloudflared and automatically configure your Pi-hole DNS configuration to use Cloudflared."
 printf "\nWhat would you like to do? (enter a number and press enter) \n1) Install Pi-hole and Cloudflare along with required configuration.\n2) Install Cloudflared along with required configuration.\n"
