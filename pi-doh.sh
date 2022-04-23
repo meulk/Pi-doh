@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Pi-DoH v1.0
+# Pi-DoH v1.1
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
 
 # Check the script is being run as root
