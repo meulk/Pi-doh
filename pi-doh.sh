@@ -1,8 +1,7 @@
 #!/bin/sh
 #
 # Pi-DoH v1.0
-# Script to install and configure Pi-hole and Cloudflared to be your network's recursive DNS server
-set -e
+# Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
 # Check the script is being run as root
 
 if [[ $EUID -ne 0 ]] ; then
