@@ -3,6 +3,14 @@
 # Pi-DoH v1.1
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
 
+# Set output colours
+COL_NC='\e[0m' # No Color
+COL_LIGHT_GREEN='\e[1;32m'
+COL_LIGHT_RED='\e[1;31m'
+TICK="[${COL_LIGHT_GREEN}✓${COL_NC}]"
+CROSS="[${COL_LIGHT_RED}✗${COL_NC}]"
+INFO="[i]"
+
 # Check the script is being run as root
 if [[ $EUID -ne 0 ]] ; then
 	echo "This script must be run as root to continue, either sudo this script or run under the root account"
