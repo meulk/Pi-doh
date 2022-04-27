@@ -140,7 +140,7 @@ cleanup() {
 	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n\n"
 }
 
-alias() {
+Pi-alias() {
 
 	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
 	{
@@ -164,13 +164,13 @@ if [ "$answer" == "1" ] ;then
 	dns_install
 	configure
 	dns
-	alias
+	Pi-alias
 	cleanup
 else
 	dns_install
 	configure
 	dns
-	alias
+	Pi-alias
 	rm pi-doh.sh
 	printf "${TICK} ${GREEN}Installation Complete! \n ${COL_NC}"
 fi
