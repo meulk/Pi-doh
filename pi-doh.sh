@@ -78,18 +78,31 @@ dns_install() {
 	# Configuring Cloudflared to run on startup	
 	# Create a configuration file for Cloudflared
 	
-	printf "${TICK} Creating Cloudflared config file...\n"
-	sleep 1
-	sudo mkdir /etc/cloudflared/
-	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
+#	printf "${TICK} Creating Cloudflared config file...\n"
+#	sleep 1
+#	sudo mkdir /etc/cloudflared/
+#	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
 	# install the service via Cloudflared's service command
-	sudo cloudflared service install --legacy
-	printf "${TICK} Cloudflared installed.\n"
-	sleep 1
+#	sudo cloudflared service install --legacy
+#	printf "${TICK} Cloudflared installed.\n"
+#	sleep 1
 fi
 }
 
 configure() {
+	sudo useradd -s /usr/sbin/nologin -r -M cloudflared
+	
+	{
+	echo "# Commandline args for cloudflared, using Cloudflare DNS"
+	echo "CLOUDFLARED_OPTS=--port 5053 --upstream https://1.1.1.1/dns-query --upstream https://1.0.0.1/dns-query"
+	}>> /etc/default/cloudflared
+	
+	sudo chown cloudflared:cloudflared /etc/default/cloudflared
+	sudo chown cloudflared:cloudflared /usr/local/bin/cloudflared
+
+}
+
+configure_old() {
 	# Start the systemd Cloudflared service
 	printf "${TICK} Starting Cloudflared...\n"
 	sleep 1
