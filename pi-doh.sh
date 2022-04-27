@@ -141,9 +141,8 @@ cleanup() {
 }
 
 Pi-alias() {
-	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" >> ~/.bash_aliases; source ~/.bash_aliases;}
+	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" >> ~/.bash_aliases; source ~/.bash_aliases;
 	printf "${TICK} piup alias added.\n"
-	
 }
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
