@@ -61,9 +61,7 @@ dns_install() {
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
-       		
-		
-	
+       			
 	else
 		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
@@ -76,6 +74,7 @@ dns_install() {
 	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
 	# install the service via Cloudflared's service command
 	sudo cloudflared service install --legacy
+	printf "${TICK} Cloudflared installed.\n" 
 fi
 }
 
