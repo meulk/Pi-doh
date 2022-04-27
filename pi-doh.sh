@@ -111,6 +111,23 @@ configure() {
 	sudo systemctl start cloudflared
 	printf "${TICK} Cloudflared installed.\n"
 	sleep 1
+	
+	# Create a weekly cronjob to update Cloudflared
+	printf "${TICK} Creating cron job to update Cloudflared at 04.00 every Sunday morning...\n"
+	sleep 1
+	#(crontab -l 2>/dev/null; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") | crontab -
+	
+	# Add custom DNS to Pi-hole
+  	dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
+  	target="/etc/pihole/setupVars.conf"
+
+  	# replace PIHOLE_DNS_1 with new DOH DNS
+  	sed -i "s/PIHOLE_DNS_1=.*/$dohDNS/" "${target}"
+  	# remove PIHOLE_DNS_2 line
+  	sed -i '/^PIHOLE_DNS_2=/d' "${target}"
+	
+	# Restart Pi-hole FTL
+	sudo service pihole-FTL restart
 }
 
 configure_old() {
