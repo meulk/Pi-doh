@@ -171,5 +171,5 @@ else
 	dns
 	alias
 	rm pi-doh.sh
-	printf "${TICK} ${GREEN} Installation Complete! \n ${COL_NC}"
+	printf "${TICK} ${GREEN}Installation Complete! \n ${COL_NC}"
 fi
