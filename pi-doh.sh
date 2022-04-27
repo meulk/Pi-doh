@@ -145,7 +145,7 @@ cleanup() {
 	rm pi-doh.sh
 	printf "${TICK} ${GREEN} Installation Complete! \n ${COL_NC}"
 	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n"
-{
+}
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
 printf "This script will install Pi-hole and/or Cloudflared, enabling DNS-Over-HTTPS functionality.\n"
