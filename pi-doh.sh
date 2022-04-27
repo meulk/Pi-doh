@@ -1,19 +1,20 @@
 #!/bin/sh
 #
-# Pi-DoH v1.1
+# Pi-DoH v1.15
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
 
 # Set output colours
-COL_NC='\e[0m' # No Color
-COL_LIGHT_GREEN='\e[1;32m'
-COL_LIGHT_RED='\e[1;31m'
-TICK="[${COL_LIGHT_GREEN}✓${COL_NC}]"
-CROSS="[${COL_LIGHT_RED}✗${COL_NC}]"
+COL_NC="\e[0m" # No Color
+GREEN="\e[1;32m"
+RED="\e[1;31m"
+YELLOW="\e[0;33m"
+TICK="[${GREEN}✓${COL_NC}]"
+CROSS="[${RED}✗${COL_NC}]"
 INFO="[i]"
 
 # Check the script is being run as root
 if [[ $EUID -ne 0 ]] ; then
-	echo "This script must be run as root to continue, either sudo this script or run under the root account"
+	printf "${CROSS} This script must be run as root to continue, either sudo this script or run under the root account\n"
 	exit 1
 fi
 
@@ -21,7 +22,6 @@ fi
 # The function returns 0 (success) if the command exists, and 1 if it doesn't.
 is_command() {
 	local check_command="$1"
-
 	command -v "${check_command}" > /dev/null 2>&1
 }
 
@@ -29,11 +29,11 @@ is_command() {
 
 pihole_install() {
 	if is_command apt-get ; then
-		tput setaf 2; echo "Running Debian based system, continuing..."
-		tput setaf 2; echo "Pi-hole installation beginning..."
+		printf "${TICK}${GREEN} Debian based system detected, continuing...${COL_NC}\n"
+		printf "${INFO} Pi-hole installation beginning...\n"
 		curl -sSL https://install.pi-hole.net | bash
 	else
-		tput setaf 1; echo "This script will only run on a Debian based system. Quiting..."
+		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
 	fi
 }
@@ -46,15 +46,15 @@ dns_install() {
 	
 	if [[ $whichbit == "aarch64" ]]; then
 		# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
-                tput setaf 2; echo "Architecture is 64 bit."
-		tput setaf 2; echo "Installing Cloudflared (arm64)..." 
+                printf "${INFO} 64-bit Architecture detected.\n"
+		printf "${TICK} Installing Cloudflared (arm64)...\n" 
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
 		sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
         else
                 # Download Cloudflared -armhf architecture (32-bit Raspberry Pi)
-		tput setaf 1; echo "Architecture is 32 bit."
-		tput setaf 2; echo "Installing Cloudflared (armhf)..."
+		printf "${INFO} 32-bit Architecture detected.\n"
+		printf "${TICK} Installing Cloudflared (armhf)...\n"
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
@@ -64,25 +64,25 @@ dns_install() {
 	
 	# Create a configuration file for Cloudflared
 	sudo mkdir /etc/cloudflared/
-	tput setaf 2; echo "Creating Cloudflared config file..." 
+	printf "${TICK} Creating Cloudflared config file...\n" 
 	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
 
 	# install the service via Cloudflared's service command
 	sudo cloudflared service install --legacy
 	
 	else
-		tput setaf 1; echo "This script will only run on a Debian based system. Quiting..."
+		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
 	fi
 }
 
 configure() {
 	# Start the systemd Cloudflared service
-	tput setaf 2; echo "Starting Cloudflared..."
+	printf "${TICK} Starting Cloudflared...\n"
   	sudo systemctl start cloudflared
 
 	# Create a weekly cronjob to update Cloudflared
-	tput setaf 2; echo "Creating cron job to update Cloudflared at 04.00 on a Sunday morning weekly..."
+	printf "${TICK} Creating cron job to update Cloudflared at 04.00 every Sunday morning...\n"
 	(crontab -l 2>/dev/null; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") | crontab -
 	
 	# Add custom DNS to Pi-hole
@@ -111,26 +111,29 @@ dns() {
 	noerror=$(dig @127.0.0.1 -p 5053 google.com | grep NOERROR)
 
 	if [[ $servfail == *"SERVFAIL"* ]]; then
-		tput setaf 2; echo "First DNS test completed successfully."
+		printf "${TICK} First DNS test completed successfully.\n"
 	else
-		tput setaf 1; echo "First DNS query returned unexpected result."
+		printf "${CROSS} First DNS query returned unexpected result.\n"
 	fi
 
 	if [[ $noerror == *"NOERROR"* ]]; then
-		tput setaf 2; echo "Second DNS test completed successfully."
+		printf "${TICK} Second DNS test completed successfully.\n"
 	else
-		tput setaf 1; echo " Second DNS query returned unexpected result."
+		printf "${CROSS} Second DNS query returned unexpected result.\n"
 	fi
 }
 
 cleanup() {
 	# Remove setup script
 	rm pi-doh.sh
-	tput setaf 2; echo "Now reinstall any blocklist backups via Teleporter in the Pi-hole GUI settings."
+	printf "${TICK} ${GREEN} Installation Complete! \n ${COL_NC}"
+	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n"
 {
 
-echo "This script will install Pi-hole, Cloudflared and automatically configure your Pi-hole DNS configuration to use Cloudflared."
-printf "\nWhat would you like to do? (enter a number and press enter) \n1) Install Pi-hole and Cloudflare along with required configuration.\n2) Install Cloudflared along with required configuration.\n"
+printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
+printf "This script will install Pi-hole and/or Cloudflared, enabling DNS-Over-HTTPS functionality.\n"
+
+printf "\n${GREEN}What would you like to do?${COL_NC} (enter a number and press enter) \n\n1) Install Pi-hole and Cloudflare along with required configuration.\n2) Install Cloudflared along with required configuration.\n"
 
 read answer
 
@@ -145,4 +148,5 @@ else
 	configure
 	dns
 	rm pi-doh.sh
+	printf "${TICK} ${GREEN} Installation Complete! \n ${COL_NC}"
 fi
