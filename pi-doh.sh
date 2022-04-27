@@ -58,6 +58,7 @@ dns_install() {
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
 		sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
+		sudo rm ./cloudflared-linux-arm64
 		
 
         elif [[ $whichbit == "armv7l" ]]; then
@@ -69,23 +70,12 @@ dns_install() {
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
+		sudo rm ./cloudflared-linux-arm
        			
 	else
 		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
 	fi
-
-	# Configuring Cloudflared to run on startup	
-	# Create a configuration file for Cloudflared
-	
-#	printf "${TICK} Creating Cloudflared config file...\n"
-#	sleep 1
-#	sudo mkdir /etc/cloudflared/
-#	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
-	# install the service via Cloudflared's service command
-#	sudo cloudflared service install --legacy
-#	printf "${TICK} Cloudflared installed.\n"
-#	sleep 1
 fi
 }
 
@@ -93,7 +83,7 @@ configure() {
 	# Configuring Cloudflared to run on startup	
 	# Create a configuration file for Cloudflared
 	
-	printf "${TICK} Creating Cloudflared config file...\n"
+	printf "${TICK} Setting up Cloudflared...\n"
 	sleep 1
 	sudo useradd -s /usr/sbin/nologin -r -M cloudflared
 	
@@ -127,30 +117,7 @@ configure() {
   	sed -i '/^PIHOLE_DNS_2=/d' "${target}"
 	
 	# Restart Pi-hole FTL
-	sudo service pihole-FTL restart
-}
-
-configure_old() {
-	# Start the systemd Cloudflared service
-	printf "${TICK} Starting Cloudflared...\n"
-	sleep 1
-  	sudo systemctl start cloudflared
-
-	# Create a weekly cronjob to update Cloudflared
-	printf "${TICK} Creating cron job to update Cloudflared at 04.00 every Sunday morning...\n"
-	sleep 1
-	(crontab -l 2>/dev/null; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") | crontab -
-	
-	# Add custom DNS to Pi-hole
-  	dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
-  	target="/etc/pihole/setupVars.conf"
-
-  	# replace PIHOLE_DNS_1 with new DOH DNS
-  	sed -i "s/PIHOLE_DNS_1=.*/$dohDNS/" "${target}"
-  	# remove PIHOLE_DNS_2 line
-  	sed -i '/^PIHOLE_DNS_2=/d' "${target}"
-	
-	# Restart Pi-hole FTL
+	printf "${TICK} Restarting Pi-hole FTL...\n"
 	sudo service pihole-FTL restart
 	
 	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
@@ -159,19 +126,16 @@ configure_old() {
 	echo "# Easy updates for the Pi using the command piup"
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'"
 	}>> ~/.bashrc
-	
 }
 
 dns() {
-printf "${TICK} DNS fuction run.\n"
-	
 	noerror=$(dig @127.0.0.1 -p 5053 google.com | grep NOERROR)
 
 	if [[ $noerror == *"NOERROR"* ]]; then
-		printf "${TICK} Second DNS test completed successfully.\n"
+		printf "${TICK} DNS test completed successfully.\n"
 		sleep 1
 	else
-		printf "${CROSS} Second DNS query returned unexpected result.\n"
+		printf "${CROSS} DNS query returned unexpected result.\n"
 		sleep 1
 	fi
 }
