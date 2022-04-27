@@ -125,7 +125,7 @@ configure() {
 	echo "\n\n"
 	echo "# Easy updates for the Pi using the command piup"
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'"
-	}>>~/.bashrc
+	} >> ~/.bashrc
 }
 
 dns() {
