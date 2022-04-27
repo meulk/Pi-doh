@@ -3,6 +3,7 @@
 # Pi-DoH v1.15
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
 
+set -e
 # Set output colours
 COL_NC="\e[0m" # No Color
 GREEN="\e[1;32m"
