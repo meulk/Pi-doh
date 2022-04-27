@@ -141,13 +141,7 @@ cleanup() {
 }
 
 Pi-alias() {
-
-	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
-	{
-	echo -e "\n\n"
-	echo "# Easy updates for the Pi using the command piup"
-	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
-	>> ~/.bash_aliases; source ~/.bash_aliases;}
+	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" >> ~/.bash_aliases; source ~/.bash_aliases;}
 	printf "${TICK} piup alias added.\n"
 	
 }
