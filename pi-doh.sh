@@ -15,7 +15,7 @@ INFO="[i]"
 
 # Check the script is being run as root
 if [[ $EUID -ne 0 ]] ; then
-	printf "${CROSS} This script must be run as root to continue, either sudo this script or run under the root account\n"
+	printf "\n${CROSS} This script must be run as root to continue, either sudo this script or run under the root account\n"
 	exit 1
 fi
 
@@ -30,13 +30,13 @@ is_command() {
 
 pihole_install() {
 	if is_command apt-get ; then
-		printf "${TICK}${GREEN} Debian based system detected, continuing...${COL_NC}\n"
+		printf "\n${TICK}${GREEN} Debian based system detected, continuing...${COL_NC}\n"
 		sleep 1
 		printf "${INFO} Pi-hole installation beginning...\n"
 		sleep 1
 		curl -sSL https://install.pi-hole.net | bash
 	else
-		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
+		printf "\n${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
 	fi
 }
@@ -73,7 +73,7 @@ dns_install() {
 		sudo rm ./cloudflared-linux-arm
        			
 	else
-		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
+		printf "\n${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
 	fi
 fi
@@ -83,7 +83,7 @@ configure() {
 	# Configuring Cloudflared to run on startup	
 	# Create a configuration file for Cloudflared
 	
-	printf "${TICK} Setting up Cloudflared...\n"
+	printf "\n${TICK} Setting up Cloudflared...\n\n"
 	sleep 1
 	sudo useradd -s /usr/sbin/nologin -r -M cloudflared
 	
@@ -136,8 +136,8 @@ dns() {
 cleanup() {
 	# Remove setup script
 	rm pi-doh.sh
-	printf "${TICK} ${GREEN} Installation Complete! \n ${COL_NC}"
-	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n"
+	printf "${TICK} ${GREEN}Installation Complete! \n\n ${COL_NC}"
+	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n\n"
 }
 
 alias() {
@@ -148,6 +148,7 @@ alias() {
 	echo "# Easy updates for the Pi using the command piup"
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
 	}>> ~/.bashrc
+	printf "${TICK} piup alias added.\n"
 }
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
