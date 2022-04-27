@@ -147,12 +147,9 @@ alias() {
 	echo -e "\n\n"
 	echo "# Easy updates for the Pi using the command piup"
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
-	}>> .bashrc
+	}>> $HOME/.bash_aliases; source ~/.bash_aliases;
 	printf "${TICK} piup alias added.\n"
-	{
-	echo "# Commandline args for cloudflared, using Cloudflare DNS"
-	echo "CLOUDFLARED_OPTS=--port 5053 --upstream https://1.1.1.1/dns-query --upstream https://1.0.0.1/dns-query"
-	}>> meh
+	
 }
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
