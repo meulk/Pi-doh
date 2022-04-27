@@ -147,7 +147,7 @@ alias() {
 	echo -e "\n\n"
 	echo "# Easy updates for the Pi using the command piup"
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
-	}>> ~/.bashrc
+	}>> .bashrc
 	printf "${TICK} piup alias added.\n"
 	{
 	echo "# Commandline args for cloudflared, using Cloudflare DNS"
