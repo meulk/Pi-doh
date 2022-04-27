@@ -31,7 +31,9 @@ is_command() {
 pihole_install() {
 	if is_command apt-get ; then
 		printf "${TICK}${GREEN} Debian based system detected, continuing...${COL_NC}\n"
+		sleep 1
 		printf "${INFO} Pi-hole installation beginning...\n"
+		sleep 1
 		curl -sSL https://install.pi-hole.net | bash
 	else
 		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
@@ -48,7 +50,9 @@ dns_install() {
 	if [[ $whichbit == "aarch64" ]]; then
 		# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
                 printf "${INFO} 64-bit Architecture detected.\n"
-		printf "${TICK} Installing Cloudflared (arm64)...\n" 
+                sleep 1
+		printf "${TICK} Installing Cloudflared (arm64)...\n"
+		sleep 1
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
 		sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
@@ -57,7 +61,9 @@ dns_install() {
         elif [[ $whichbit == "armv7l" ]]; then
                 # Download Cloudflared -armhf architecture (32-bit Raspberry Pi)
 		printf "${INFO} 32-bit Architecture detected.\n"
+		sleep 1
 		printf "${TICK} Installing Cloudflared (armhf)...\n"
+		sleep 1
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
@@ -69,22 +75,27 @@ dns_install() {
 
 	# Configuring Cloudflared to run on startup	
 	# Create a configuration file for Cloudflared
+	
+	printf "${TICK} Creating Cloudflared config file...\n"
+	sleep 1
 	sudo mkdir /etc/cloudflared/
-	printf "${TICK} Creating Cloudflared config file...\n" 
 	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
 	# install the service via Cloudflared's service command
 	sudo cloudflared service install --legacy
-	printf "${TICK} Cloudflared installed.\n" 
+	printf "${TICK} Cloudflared installed.\n"
+	sleep 1
 fi
 }
 
 configure() {
 	# Start the systemd Cloudflared service
 	printf "${TICK} Starting Cloudflared...\n"
+	sleep 1
   	sudo systemctl start cloudflared
 
 	# Create a weekly cronjob to update Cloudflared
 	printf "${TICK} Creating cron job to update Cloudflared at 04.00 every Sunday morning...\n"
+	sleep 1
 	(crontab -l 2>/dev/null; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") | crontab -
 	
 	# Add custom DNS to Pi-hole
@@ -114,14 +125,18 @@ dns() {
 
 	if [[ $servfail == *"SERVFAIL"* ]]; then
 		printf "${TICK} First DNS test completed successfully.\n"
+		sleep 1
 	else
 		printf "${CROSS} First DNS query returned unexpected result.\n"
+		sleep 1
 	fi
 
 	if [[ $noerror == *"NOERROR"* ]]; then
 		printf "${TICK} Second DNS test completed successfully.\n"
+		sleep 1
 	else
 		printf "${CROSS} Second DNS query returned unexpected result.\n"
+		sleep 1
 	fi
 }
 
