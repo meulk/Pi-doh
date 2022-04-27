@@ -121,11 +121,10 @@ configure() {
 	sudo service pihole-FTL restart
 	
 	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
-	{
-	echo "\n\n"
-	echo "# Easy updates for the Pi using the command piup"
-	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'"
-	} >> ~/.bashrc
+	echo "\n\n" >> ~/.bashrc
+	echo "# Easy updates for the Pi using the command piup" >> ~/.bashrc
+	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" >> ~/.bashrc
+	
 }
 
 dns() {
