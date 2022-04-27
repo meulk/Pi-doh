@@ -51,28 +51,34 @@ dns_install() {
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
 		sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
-        else
+		
+		# Configuring Cloudflared to run on startup	
+		# Create a configuration file for Cloudflared
+		sudo mkdir /etc/cloudflared/
+		printf "${TICK} Creating Cloudflared config file...\n" 
+		wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
+		# install the service via Cloudflared's service command
+		sudo cloudflared service install --legacy
+        elif
                 # Download Cloudflared -armhf architecture (32-bit Raspberry Pi)
 		printf "${INFO} 32-bit Architecture detected.\n"
 		printf "${TICK} Installing Cloudflared (armhf)...\n"
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
-        fi
-
-	# Configuring Cloudflared to run on startup
-	
-	# Create a configuration file for Cloudflared
-	sudo mkdir /etc/cloudflared/
-	printf "${TICK} Creating Cloudflared config file...\n" 
-	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
-
-	# install the service via Cloudflared's service command
-	sudo cloudflared service install --legacy
+       		
+		# Configuring Cloudflared to run on startup	
+		# Create a configuration file for Cloudflared
+		sudo mkdir /etc/cloudflared/
+		printf "${TICK} Creating Cloudflared config file...\n" 
+		wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
+		# install the service via Cloudflared's service command
+		sudo cloudflared service install --legacy
 	
 	else
 		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
+	fi
 	fi
 }
 
