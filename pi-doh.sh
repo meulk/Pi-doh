@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Pi-DoH v1.15
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
@@ -42,7 +42,7 @@ dns_install() {
 	if is_command apt-get; then
 	whichbit=$(uname -m)
 
-	# Check if Raspberry Pi is running 32 bit or 64 bit and download correct version of Cloudflared
+	# Check if Raspberry Pi is running 32-bit or 64-bit and download correct version of Cloudflared
 	
 	if [[ $whichbit == "aarch64" ]]; then
 		# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
@@ -52,14 +52,8 @@ dns_install() {
 		sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
 		
-		# Configuring Cloudflared to run on startup	
-		# Create a configuration file for Cloudflared
-		sudo mkdir /etc/cloudflared/
-		printf "${TICK} Creating Cloudflared config file...\n" 
-		wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
-		# install the service via Cloudflared's service command
-		sudo cloudflared service install --legacy
-        elif
+
+        elif [[ $whichbit == "armv7l" ]]; then
                 # Download Cloudflared -armhf architecture (32-bit Raspberry Pi)
 		printf "${INFO} 32-bit Architecture detected.\n"
 		printf "${TICK} Installing Cloudflared (armhf)...\n"
@@ -67,19 +61,21 @@ dns_install() {
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
 		sudo chmod +x /usr/local/bin/cloudflared
        		
-		# Configuring Cloudflared to run on startup	
-		# Create a configuration file for Cloudflared
-		sudo mkdir /etc/cloudflared/
-		printf "${TICK} Creating Cloudflared config file...\n" 
-		wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
-		# install the service via Cloudflared's service command
-		sudo cloudflared service install --legacy
+		
 	
 	else
 		printf "${CROSS} This script will only run on a Debian based system. Quiting...\n"
 		exit 1
 	fi
-	fi
+
+	# Configuring Cloudflared to run on startup	
+	# Create a configuration file for Cloudflared
+	sudo mkdir /etc/cloudflared/
+	printf "${TICK} Creating Cloudflared config file...\n" 
+	wget -O /etc/cloudflared/config.yml "https://raw.githubusercontent.com/meulk/Pi-doh/main/config.yml"
+	# install the service via Cloudflared's service command
+	sudo cloudflared service install --legacy
+fi
 }
 
 configure() {
