@@ -83,7 +83,7 @@ configure() {
 	# Configuring Cloudflared to run on startup	
 	# Create a configuration file for Cloudflared
 	
-	printf "\n${TICK} Setting up Cloudflared...\n\n"
+	printf "${TICK} Setting up Cloudflared...\n\n"
 	sleep 1
 	sudo useradd -s /usr/sbin/nologin -r -M cloudflared
 	
@@ -99,7 +99,7 @@ configure() {
 	
 	sudo systemctl enable cloudflared
 	sudo systemctl start cloudflared
-	printf "\n\n${TICK} Cloudflared installed.\n"
+	printf "\n${TICK} Cloudflared installed.\n"
 	sleep 1
 	
 	# Create a weekly cronjob to update Cloudflared
@@ -149,6 +149,10 @@ alias() {
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
 	}>> ~/.bashrc
 	printf "${TICK} piup alias added.\n"
+	{
+	echo "# Commandline args for cloudflared, using Cloudflare DNS"
+	echo "CLOUDFLARED_OPTS=--port 5053 --upstream https://1.1.1.1/dns-query --upstream https://1.0.0.1/dns-query"
+	}>> meh
 }
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
