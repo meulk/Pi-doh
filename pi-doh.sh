@@ -100,6 +100,11 @@ configure() {
 	sudo chown cloudflared:cloudflared /etc/default/cloudflared
 	sudo chown cloudflared:cloudflared /usr/local/bin/cloudflared
 
+	wget -O /etc/systemd/system/cloudflared.service "https://raw.githubusercontent.com/meulk/Pi-doh/main/cloudflared.service"
+	
+	sudo systemctl enable cloudflared
+	sudo systemctl start cloudflared
+	sudo systemctl status cloudflared
 }
 
 configure_old() {
