@@ -53,7 +53,7 @@ dns_install() {
 		# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
                 printf "\n${INFO} 64-bit Architecture detected.\n"
                 sleep 1
-		printf "${TICK} Installing Cloudflared (arm64)...\n"
+		printf "${TICK} Installing Cloudflared (arm64)...\n\n"
 		sleep 1
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64
 		sudo cp ./cloudflared-linux-arm64 /usr/local/bin/cloudflared
@@ -65,7 +65,7 @@ dns_install() {
                 # Download Cloudflared -armhf architecture (32-bit Raspberry Pi)
 		printf "\n${INFO} 32-bit Architecture detected.\n"
 		sleep 1
-		printf "${TICK} Installing Cloudflared (armhf)...\n"
+		printf "${TICK} Installing Cloudflared (armhf)...\n\n"
 		sleep 1
 		wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm
 		sudo cp ./cloudflared-linux-arm /usr/local/bin/cloudflared
