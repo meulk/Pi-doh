@@ -147,7 +147,7 @@ Pi-alias() {
 	echo -e "\n\n"
 	echo "# Easy updates for the Pi using the command piup"
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
-	}>> $HOME/.bash_aliases; source ~/.bash_aliases;
+	>> ~/.bash_aliases; source ~/.bash_aliases;}
 	printf "${TICK} piup alias added.\n"
 	
 }
