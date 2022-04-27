@@ -118,15 +118,7 @@ configure() {
 	
 	# Restart Pi-hole FTL
 	printf "${TICK} Restarting Pi-hole FTL...\n"
-	sudo service pihole-FTL restart
-	
-	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
-	{
-	echo -e "\n\n"
-	echo "# Easy updates for the Pi using the command piup"
-	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
-	}>> ~/.bashrc
-	
+	sudo service pihole-FTL restart	
 }
 
 dns() {
@@ -148,6 +140,16 @@ cleanup() {
 	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n"
 }
 
+alias() {
+
+	# Setup the alias "piup" to make it easier to run updates for Raspberry Pi
+	{
+	echo -e "\n\n"
+	echo "# Easy updates for the Pi using the command piup"
+	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'" 
+	}>> ~/.bashrc
+}
+
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
 printf "This script will install Pi-hole and/or Cloudflared, enabling DNS-Over-HTTPS functionality.\n"
 
@@ -160,11 +162,13 @@ if [ "$answer" == "1" ] ;then
 	dns_install
 	configure
 	dns
+	alias
 	cleanup
 else
 	dns_install
 	configure
 	dns
+	alias
 	rm pi-doh.sh
 	printf "${TICK} ${GREEN} Installation Complete! \n ${COL_NC}"
 fi
