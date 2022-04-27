@@ -163,6 +163,7 @@ configure_old() {
 }
 
 dns() {
+printf "${TICK} DNS fuction run.\n"
 	servfail=$(dig @127.0.0.1 -p 5053 google.com | grep SERVFAIL)
 	noerror=$(dig @127.0.0.1 -p 5053 google.com | grep NOERROR)
 
