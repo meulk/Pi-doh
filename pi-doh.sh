@@ -99,7 +99,7 @@ configure() {
 	
 	sudo systemctl enable cloudflared
 	sudo systemctl start cloudflared
-	printf "${TICK} Cloudflared installed.\n"
+	printf "\n\n${TICK} Cloudflared installed.\n"
 	sleep 1
 	
 	# Create a weekly cronjob to update Cloudflared
@@ -125,7 +125,7 @@ configure() {
 	echo "\n\n"
 	echo "# Easy updates for the Pi using the command piup"
 	echo "alias piup='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && sudo apt clean'"
-	}>> ~/.bashrc
+	}>>~/.bashrc
 }
 
 dns() {
