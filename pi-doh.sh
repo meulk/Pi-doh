@@ -43,13 +43,15 @@ pihole_install() {
 
 dns_install() {
 	if is_command apt-get; then
+	printf "\n${YELLOW}Installing Cloudflared\n${COL_NC}"
+	sleep 2
 	whichbit=$(uname -m)
 
 	# Check if Raspberry Pi is running 32-bit or 64-bit and download correct version of Cloudflared
 	
 	if [[ $whichbit == "aarch64" ]]; then
 		# Download Cloudflared - arm64 architecture (64-bit Raspberry Pi)
-                printf "${INFO} 64-bit Architecture detected.\n"
+                printf "\n${INFO} 64-bit Architecture detected.\n"
                 sleep 1
 		printf "${TICK} Installing Cloudflared (arm64)...\n"
 		sleep 1
@@ -60,7 +62,7 @@ dns_install() {
 
         elif [[ $whichbit == "armv7l" ]]; then
                 # Download Cloudflared -armhf architecture (32-bit Raspberry Pi)
-		printf "${INFO} 32-bit Architecture detected.\n"
+		printf "\n${INFO} 32-bit Architecture detected.\n"
 		sleep 1
 		printf "${TICK} Installing Cloudflared (armhf)...\n"
 		sleep 1
