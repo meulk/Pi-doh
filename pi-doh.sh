@@ -164,16 +164,16 @@ configure_old() {
 
 dns() {
 printf "${TICK} DNS fuction run.\n"
-	servfail=$(dig @127.0.0.1 -p 5053 google.com | grep SERVFAIL)
+	#servfail=$(dig @127.0.0.1 -p 5053 google.com | grep SERVFAIL)
 	noerror=$(dig @127.0.0.1 -p 5053 google.com | grep NOERROR)
 
-	if [[ $servfail == *"SERVFAIL"* ]]; then
-		printf "${TICK} First DNS test completed successfully.\n"
-		sleep 1
-	else
-		printf "${CROSS} First DNS query returned unexpected result.\n"
-		sleep 1
-	fi
+	#if [[ $servfail == *"SERVFAIL"* ]]; then
+	#	printf "${TICK} First DNS test completed successfully.\n"
+	#	sleep 1
+	#else
+	#	printf "${CROSS} First DNS query returned unexpected result.\n"
+	#	sleep 1
+	#fi
 
 	if [[ $noerror == *"NOERROR"* ]]; then
 		printf "${TICK} Second DNS test completed successfully.\n"
