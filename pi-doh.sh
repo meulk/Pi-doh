@@ -90,6 +90,11 @@ fi
 }
 
 configure() {
+	# Configuring Cloudflared to run on startup	
+	# Create a configuration file for Cloudflared
+	
+	printf "${TICK} Creating Cloudflared config file...\n"
+	sleep 1
 	sudo useradd -s /usr/sbin/nologin -r -M cloudflared
 	
 	{
@@ -104,7 +109,8 @@ configure() {
 	
 	sudo systemctl enable cloudflared
 	sudo systemctl start cloudflared
-	sudo systemctl status cloudflared
+	printf "${TICK} Cloudflared installed.\n"
+	sleep 1
 }
 
 configure_old() {
