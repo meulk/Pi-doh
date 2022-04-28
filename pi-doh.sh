@@ -141,7 +141,10 @@ cleanup() {
 }
 
 Pi-alias() {
-touch $HOME/.bash_aliases
+if [ -f ~/.bash_aliases ]; then
+   source ~/.bash_aliases
+fi
+
 {
 echo "#Creates the alias "piup" for easy updating of the Raspberry Pi"
 echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'"
