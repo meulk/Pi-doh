@@ -141,9 +141,12 @@ cleanup() {
 }
 
 Pi-alias() {
-	var="alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'"
-	echo "$var" >> ~/.bash_aliases
-	#echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'" >> ~/.bash_aliases
+
+	{
+	#echo "# Commandline args for cloudflared, using Cloudflare DNS"
+	echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'"
+	}>> ~/.bash_aliases
+	
 	#source ~/.bash_aliases
 	printf "${TICK} piup alias added.\n"
 }
