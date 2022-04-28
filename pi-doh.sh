@@ -141,8 +141,8 @@ cleanup() {
 }
 
 Pi-alias() {
-printf "%s\n" "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'" >> ~/.bash_aliases
-source ~/.bash_aliases # for immediate effect
+printf "%s\n" "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'" >> ~/.bashrc
+source ~/.bashrc # for immediate effect
 #{
 #echo "#Creates the alias "piup" for easy updating of the Raspberry Pi"
 #echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'"
