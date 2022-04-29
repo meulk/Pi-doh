@@ -141,10 +141,11 @@ cleanup() {
 }
 
 Pi-alias() {
-set -i
+eval "$(cat ~/.bashrc | tail -n +10)"
+
 printf "%s\n" "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'" >> ~/.bashrc | sudo sh
 source ~/.bashrc # for immediate effect
-set +i
+
 #{
 #echo "#Creates the alias "piup" for easy updating of the Raspberry Pi"
 #echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'"
