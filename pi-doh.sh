@@ -143,7 +143,8 @@ cleanup() {
 Pi-alias() {
 eval "$(cat ~/.bashrc | tail -n +10)"
 
-printf "%s\n" "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'" >> ~/.bashrc
+varr= echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'" >> ~/.bashrc
+eval $varr
 source ~/.bashrc # for immediate effect
 
 #{
