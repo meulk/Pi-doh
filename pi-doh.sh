@@ -109,7 +109,7 @@ configure() {
 	# Create a weekly cronjob to update Cloudflared
 	printf "${TICK} Creating cron job to update Cloudflared at 04.00 every Sunday morning...\n"
 	sleep 1
-	#(crontab -l 2>/dev/null; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") | crontab -
+	(crontab -l 2>/dev/null; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") | crontab -
 	
 	# Add custom DNS to Pi-hole
   	dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
