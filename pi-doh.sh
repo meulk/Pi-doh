@@ -4,6 +4,9 @@
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
 
 set -e
+
+PIHOLE_INSTALL=false
+
 # Set output colours
 COL_NC="\e[0m" # No Color
 GREEN="\e[1;32m"
@@ -30,6 +33,7 @@ is_command() {
 
 pihole_install() {
 	if is_command apt-get ; then
+		PIHOLE_INSTALL=true
 		printf "\n${TICK}${GREEN} Debian based system detected, continuing...${COL_NC}\n"
 		sleep 1
 		printf "${INFO} Pi-hole installation beginning...\n"
@@ -137,7 +141,9 @@ cleanup() {
 	# Remove setup script
 	rm pi-doh.sh
 	printf "${TICK} ${GREEN}Installation Complete! \n\n ${COL_NC}"
-	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n\n"
+	if [[ "${PIHOLE_INSTALL}" == true ]] ; then
+         printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n\n"
+	fi
 }
 
 setup_alias() {
