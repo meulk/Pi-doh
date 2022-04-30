@@ -140,19 +140,10 @@ cleanup() {
 	printf "${INFO} Now re-install any blocklist backups via Teleporter in the Pi-hole GUI settings.\n\n"
 }
 
-Pi-alias() {
-eval "$(cat ~/.bashrc | tail -n +10)"
-
-varr= echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'" >> ~/.bashrc
-eval $varr
-source ~/.bashrc # for immediate effect
-
-#{
-#echo "#Creates the alias "piup" for easy updating of the Raspberry Pi"
-#echo "alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'"
-#}>> $HOME/.bash_aliases
-
-printf "${TICK} piup alias added.\n"
+setup_alias() {
+	printf "\n${INFO} To create the alias \"piup\" for easy updating of the Raspberry Pi, enter the following in terminal:\n"
+	printf "\n${YELLOW} echo \"alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'\" >> ~/.bash_aliases\n"
+	printf "\n${YELLOW} source ~/.bash_aliases${COL_NC}\n\n"
 }
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
@@ -167,13 +158,13 @@ if [ "$answer" == "1" ] ;then
 	dns_install
 	configure
 	dns
-	Pi-alias
+	setup_alias
 	cleanup
 else
 	dns_install
 	configure
 	dns
-	Pi-alias
+	setup_alias
 	rm pi-doh.sh
 	printf "${TICK} ${GREEN}Installation Complete! \n ${COL_NC}"
 fi
