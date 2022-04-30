@@ -170,7 +170,6 @@ else
 	dns_install
 	configure
 	dns
-	rm pi-doh.sh
-	printf "${TICK} ${GREEN}Installation Complete! \n ${COL_NC}"
+	cleanup
 	setup_alias
 fi
