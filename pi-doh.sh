@@ -158,13 +158,13 @@ if [ "$answer" == "1" ] ;then
 	dns_install
 	configure
 	dns
-	setup_alias
 	cleanup
+	setup_alias
 else
 	dns_install
 	configure
 	dns
-	setup_alias
 	rm pi-doh.sh
 	printf "${TICK} ${GREEN}Installation Complete! \n ${COL_NC}"
+	setup_alias
 fi
