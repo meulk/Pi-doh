@@ -155,6 +155,16 @@ setup_alias() {
 	printf "\n${YELLOW} source ~/.bash_aliases${COL_NC}\n\n"
 }
 
+uninstall_cloudflared {
+	sudo systemctl stop cloudflared
+	sudo systemctl disable cloudflared
+	sudo systemctl daemon-reload
+	sudo deluser cloudflared
+	sudo rm /etc/default/cloudflared
+	sudo rm /etc/systemd/system/cloudflared.service
+	sudo rm /usr/local/bin/cloudflared
+}
+
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
 printf "This script will install Pi-hole and/or Cloudflared, enabling DNS-Over-HTTPS functionality.\n"
 
