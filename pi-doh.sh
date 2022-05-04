@@ -155,7 +155,7 @@ setup_alias() {
 	printf "\n${YELLOW} source ~/.bash_aliases${COL_NC}\n\n"
 }
 
-uninstall_cloudflared {
+uninstall_cloudflared() {
 	sudo systemctl stop cloudflared
 	sudo systemctl disable cloudflared
 	sudo systemctl daemon-reload
