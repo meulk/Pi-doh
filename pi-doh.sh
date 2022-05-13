@@ -111,7 +111,7 @@ configure() {
 	sleep 1
 	(crontab -l ; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") 2>&1 | grep -v "no crontab" | sort | uniq | crontab -
 	
-	#delete conjob
+	#delete cronjob
 	#(crontab -l ; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") 2>&1 | grep -v "no crontab" | grep -v "sudo cloudflared" |  sort | uniq | crontab -
 	
 	# Add custom DNS to Pi-hole
@@ -163,6 +163,10 @@ uninstall_cloudflared() {
 	sudo rm /etc/default/cloudflared
 	sudo rm /etc/systemd/system/cloudflared.service
 	sudo rm /usr/local/bin/cloudflared
+	
+	#delete cronjob
+	(crontab -l ; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") 2>&1 | grep -v "no crontab" | grep -v "sudo cloudflared" |  sort | uniq | crontab -
+	
 }
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
