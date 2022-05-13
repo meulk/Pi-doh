@@ -176,23 +176,6 @@ printf "\n${GREEN}What would you like to do?${COL_NC} (enter a number and press 
 read answer
 
 if [ "$answer" == "1" ] ;then
-	pihole_install
-	dns_install
-	configure
-	dns
-	cleanup
-	setup_alias
-else
-	dns_install
-	configure
-	dns
-	cleanup
-	setup_alias
-fi
-
-
-
-if [ "$answer" == "1" ] ;then
         pihole_install
 	dns_install
 	configure
