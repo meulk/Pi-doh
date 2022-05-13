@@ -153,6 +153,8 @@ setup_alias() {
 }
 
 uninstall_cloudflared() {
+	printf "\n${INFO} Uninstalling Cloudflared...\n"
+	sleep 1
 	sudo systemctl stop cloudflared
 	sudo systemctl disable cloudflared
 	sudo systemctl daemon-reload
@@ -163,13 +165,13 @@ uninstall_cloudflared() {
 	
 	#delete cronjob
 	(crontab -l ; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") 2>&1 | grep -v "no crontab" | grep -v "sudo cloudflared" |  sort | uniq | crontab -
-	
+	printf "${TICK} Cloudflared has been uninstalled.\n"
 }
 
 printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
 printf "This script will install Pi-hole and/or Cloudflared, enabling DNS-Over-HTTPS functionality.\n"
 
-printf "\n${GREEN}What would you like to do?${COL_NC} (enter a number and press enter) \n\n1) Install Pi-hole and Cloudflare along with required configuration.\n2) Install Cloudflared along with required configuration.\n"
+printf "\n${GREEN}What would you like to do?${COL_NC} (enter a number and press enter) \n\n1) Install Pi-hole and Cloudflare along with required configuration.\n2) Install Cloudflared along with required configuration.\n3) Uninstall Cloudflared.\n"
 
 read answer
 
@@ -187,3 +189,27 @@ else
 	cleanup
 	setup_alias
 fi
+
+
+
+if [ "$answer" == "1" ] ;then
+        pihole_install
+	dns_install
+	configure
+	dns
+	cleanup
+	setup_alias
+
+elif [ "$answer" == "2" ] ;then
+        dns_install
+	configure
+	dns
+	cleanup
+	setup_alias
+
+elif [ "$answer" == "3" ] ;then
+        uninstall_cloudflared()
+else
+        printf "${TICK} ${GREEN}Choose 1-3 only ffs. \n\n ${COL_NC}"
+fi
+
