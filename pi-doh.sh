@@ -111,9 +111,6 @@ configure() {
 	sleep 1
 	(crontab -l ; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") 2>&1 | grep -v "no crontab" | sort | uniq | crontab -
 	
-	#delete cronjob
-	#(crontab -l ; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") 2>&1 | grep -v "no crontab" | grep -v "sudo cloudflared" |  sort | uniq | crontab -
-	
 	# Add custom DNS to Pi-hole
   	dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
   	target="/etc/pihole/setupVars.conf"
