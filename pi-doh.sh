@@ -193,6 +193,6 @@ elif [ "$answer" == "2" ] ;then
 elif [ "$answer" == "3" ] ;then
         uninstall_cloudflared()
 else
-        printf "${CROSS} ${GREEN}Choose 1-3 only ffs. \n\n ${COL_NC}"
+        printf "${CROSS} ${RED}Choose 1-3 only ffs. \n\n ${COL_NC}"
 fi
 
