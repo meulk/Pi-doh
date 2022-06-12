@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Pi-DoH v1.2
+# Pi-DoH v1.25
 # Script to install and configure Pi-hole and Cloudflared's DNS-Over-HTTPS proxy functionality
 
 set -e
@@ -168,7 +168,7 @@ uninstall_cloudflared() {
 	printf "${TICK} Cloudflared has been uninstalled.\n"
 }
 
-printf "\n${YELLOW}Pi-doh v1.15\n${COL_NC}"
+printf "\n${YELLOW}Pi-doh v1.25\n${COL_NC}"
 printf "This script will install Pi-hole and/or Cloudflared, enabling DNS-Over-HTTPS functionality.\n"
 
 printf "\n${GREEN}What would you like to do?${COL_NC} (enter a number and press enter) \n\n1) Install Pi-hole and Cloudflare along with required configuration.\n2) Install Cloudflared along with required configuration.\n3) Uninstall Cloudflared.\n"
