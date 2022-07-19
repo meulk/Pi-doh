@@ -22,9 +22,7 @@ if [[ $EUID -ne 0 ]] ; then
 	exit 1
 fi
 
-# Checks to see if the given command (passed as a string argument) exists on the system.
-# The function returns 0 (success) if the command exists, and 1 if it doesn't.
-is_command() {
+command_exists() {
 	local check_command="$1"
 	command -v "${check_command}" > /dev/null 2>&1
 }
@@ -32,7 +30,7 @@ is_command() {
 # Main install functions, these install Pi-hole and Cloudflared
 
 pihole_install() {
-	if is_command apt-get ; then
+	if command_exists apt-get ; then
 		PIHOLE_INSTALL=true
 		printf "\n${TICK}${GREEN} Debian based system detected, continuing...${COL_NC}\n"
 		sleep 1
@@ -46,7 +44,7 @@ pihole_install() {
 }
 
 dns_install() {
-	if is_command apt-get; then
+	if command_exists apt-get; then
 	printf "\n${YELLOW}Installing Cloudflared\n${COL_NC}"
 	sleep 2
 	whichbit=$(uname -m)
