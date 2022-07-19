@@ -189,7 +189,7 @@ elif [ "$answer" == "2" ] ;then
 	setup_alias
 
 elif [ "$answer" == "3" ] ;then
-        uninstall_cloudflared()
+        uninstall_cloudflared
 else
         printf "${CROSS} ${RED}Choose 1-3 only ffs. \n\n ${COL_NC}"
 fi
