@@ -43,7 +43,7 @@ pihole_install() {
 	fi
 }
 
-dns_install() {
+cloudflared_install() {
 	if command_exists apt-get; then
 	printf "\n${YELLOW}Installing Cloudflared\n${COL_NC}"
 	sleep 2
@@ -175,14 +175,14 @@ read answer
 
 if [ "$answer" == "1" ] ;then
         pihole_install
-	dns_install
+	cloudflared_install
 	configure
 	dns
 	cleanup
 	setup_alias
 
 elif [ "$answer" == "2" ] ;then
-        dns_install
+        cloudflared_install
 	configure
 	dns
 	cleanup
