@@ -148,6 +148,10 @@ setup_alias() {
 	printf "\n${INFO}${GREEN} To create the alias \"piup\" for easy updating of the Raspberry Pi, enter the following in terminal:${COL_NC}\n"
 	printf "\n${YELLOW} echo \"alias piup='sudo apt-get update && sudo apt-get full-upgrade && sudo apt-get autoremove && sudo apt-get clean'\" >> ~/.bash_aliases\n"
 	printf "\n${YELLOW} source ~/.bash_aliases${COL_NC}\n\n"
+
+	# Install and setup Docker
+ 	# https://docs.docker.com/engine/install/debian/
+ 	# alias dockerup='sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin'
 }
 
 uninstall_cloudflared() {
