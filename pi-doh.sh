@@ -110,13 +110,15 @@ configure() {
 	(crontab -l ; echo "0 4 * * 0 sudo cloudflared update && sudo systemctl restart cloudflared") 2>&1 | grep -v "no crontab" | sort | uniq | crontab -
 	
 	# Add custom DNS to Pi-hole
-  	dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
-  	target="/etc/pihole/setupVars.conf"
+	sudo pihole-FTL --config dns.upstreams '["127.0.0.1#5053"]'
+  	
+	#dohDNS="PIHOLE_DNS_1=127.0.0.1#5053"
+  	#target="/etc/pihole/setupVars.conf"
 
   	# replace PIHOLE_DNS_1 with new DOH DNS
-  	sed -i "s/PIHOLE_DNS_1=.*/$dohDNS/" "${target}"
+  	#sed -i "s/PIHOLE_DNS_1=.*/$dohDNS/" "${target}"
   	# remove PIHOLE_DNS_2 line
-  	sed -i '/^PIHOLE_DNS_2=/d' "${target}"
+  	#sed -i '/^PIHOLE_DNS_2=/d' "${target}"
 	
 	# Restart Pi-hole FTL
 	printf "${TICK} Restarting Pi-hole FTL...\n"
